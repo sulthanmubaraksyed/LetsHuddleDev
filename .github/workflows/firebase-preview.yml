@@ -34,24 +34,6 @@ jobs:
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Enable Secret Manager API
-        env:
-          PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-        run: |
-          gcloud services enable secretmanager.googleapis.com --project="$PROJECT_ID" --quiet
-          echo "✓ Secret Manager API enabled"
-
-      - name: Grant Secret Manager access to service account
-        env:
-          PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          SA_EMAIL: ${{ secrets.FIREBASE_SA_EMAIL }}
-        run: |
-          gcloud projects add-iam-policy-binding "$PROJECT_ID" \
-            --member="serviceAccount:$SA_EMAIL" \
-            --role="roles/secretmanager.admin" \
-            --quiet
-          echo "✓ Secret Manager Admin role granted"
-
       - name: Sync GitHub Secrets to Firebase Secret Manager
         env:
           PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
