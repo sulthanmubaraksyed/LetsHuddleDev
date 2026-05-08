@@ -31,6 +31,24 @@ jobs:
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Enable Secret Manager API
+        env:
+          PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+        run: |
+          gcloud services enable secretmanager.googleapis.com --project="$PROJECT_ID" --quiet
+          echo "✓ Secret Manager API enabled"
+
+      - name: Grant Secret Manager access to service account
+        env:
+          PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          SA_EMAIL: ${{ secrets.FIREBASE_SA_EMAIL }}
+        run: |
+          gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+            --member="serviceAccount:$SA_EMAIL" \
+            --role="roles/secretmanager.admin" \
+            --quiet
+          echo "✓ Secret Manager Admin role granted"
+
       - name: Sync GitHub Secrets to Firebase Secret Manager
         env:
           PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
@@ -44,11 +62,17 @@ jobs:
           set_secret() {
             local name=$1
             local value=$2
-            if ! gcloud secrets describe "$name" --project="$PROJECT_ID" &>/dev/null; then
+            if ! gcloud secrets describe "$name" --project="$PROJECT_ID" --quiet &>/dev/null; then
               echo "Creating secret: $name"
-              gcloud secrets create "$name" --project="$PROJECT_ID" --replication-policy="automatic"
+              gcloud secrets create "$name" \
+                --project="$PROJECT_ID" \
+                --replication-policy="automatic" \
+                --quiet
             fi
-            echo -n "$value" | gcloud secrets versions add "$name" --project="$PROJECT_ID" --data-file=-
+            echo -n "$value" | gcloud secrets versions add "$name" \
+              --project="$PROJECT_ID" \
+              --data-file=- \
+              --quiet
             echo "✓ $name synced"
           }
           set_secret "VITE_FIREBASE_API_KEY"             "$VITE_FIREBASE_API_KEY"
