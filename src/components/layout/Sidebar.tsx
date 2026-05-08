@@ -40,7 +40,7 @@ export function Sidebar() {
           <div className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center">
             <Zap className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-lg tracking-tight">LetsHuddle</span>
+          <span className="font-bold text-lg tracking-tight">LetsHuddleDev</span>
         </div>
         <p className="text-xs text-slate-400 mt-1 ml-10">Task & Huddle Manager</p>
       </div>
@@ -107,7 +107,7 @@ export function MobileHeader({ onMenuOpen }: { onMenuOpen: () => void }) {
         <div className="w-7 h-7 rounded-lg bg-blue-500 flex items-center justify-center">
           <Zap className="w-4 h-4 text-white" />
         </div>
-        <span className="font-bold text-slate-900">LetsHuddle</span>
+        <span className="font-bold text-slate-900">LetsHuddleDev</span>
       </div>
       <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-sm font-semibold text-white">
         {appUser?.displayName?.[0]?.toUpperCase() || 'U'}

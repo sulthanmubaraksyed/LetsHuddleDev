@@ -69,7 +69,7 @@ export function LoginPage() {
           <div className="w-16 h-16 rounded-2xl bg-blue-500 flex items-center justify-center mx-auto mb-6">
             <Zap className="w-9 h-9 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-3">LetsHuddle</h1>
+          <h1 className="text-4xl font-bold text-white mb-3">LetsHuddleDev</h1>
           <p className="text-slate-400 text-lg">
             Organize tasks, schedule huddles, track progress — all in one place.
           </p>
@@ -96,7 +96,7 @@ export function LoginPage() {
             <div className="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center">
               <Zap className="w-6 h-6 text-white" />
             </div>
-            <span className="font-bold text-2xl text-slate-900">LetsHuddle</span>
+            <span className="font-bold text-2xl text-slate-900">LetsHuddleDev</span>
           </div>
 
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
@@ -104,7 +104,7 @@ export function LoginPage() {
               {mode === 'login' ? 'Welcome back' : 'Create account'}
             </h2>
             <p className="text-slate-500 text-sm mb-6">
-              {mode === 'login' ? 'Sign in to your account' : 'Get started with LetsHuddle'}
+              {mode === 'login' ? 'Sign in to your account' : 'Get started with LetsHuddleDev'}
             </p>
 
             {mode === 'login' ? (
